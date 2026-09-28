@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EXAppExtensionAttributes</key>
+	<dict>
+		<key>EXExtensionPointIdentifier</key>
+		<string>com.apple.fskit.fsmodule</string>
+		<key>FSShortName</key>
+		<string>xlinuxfs</string>
+		<key>FSSupportsBlockResources</key>
+		<true/>
+		<key>FSSupportsGenericURLResources</key>
+		<false/>
+		<key>FSSupportsPathURLs</key>
+		<true/>
+		<key>FSSupportsServerURLs</key>
+		<false/>
+		<key>FSRequiresSecurityScopedPathURLResources</key>
+		<true/>
+		<key>FSSupportsKernelOffloadedIO</key>
+		<false/>
+		<key>FSVolumeAlwaysIgnoreOwnership</key>
+		<true/>
+		<key>FSActivateOptionSyntax</key>
+		<dict>
+			<key>shortOptions</key>
+			<string>o:</string>
+		</dict>
+		<key>FSCheckOptionSyntax</key>
+		<dict>
+			<key>shortOptions</key>
+			<string>nqy</string>
+		</dict>
+		<key>FSFormatOptionSyntax</key>
+		<dict>
+			<key>shortOptions</key>
+			<string>v</string>
+		</dict>
+		<key>FSPersonalities</key>
+		<dict>
+			<key>linux</key>
+			<dict>
+				<key>FSName</key>
+				<string>Linux — ext/XFS/Btrfs (xlinuxfs)</string>
+				<key>FSSubType</key>
+				<integer>0</integer>
+				<key>FSfileObjectsAreCaseSensitive</key>
+				<true/>
+			</dict>
+		</dict>
+		<key>FSMediaTypes</key>
+		<dict>
+			<key>0FC63DAF-8483-4772-8E79-3D69D8477DE4</key>
+			<dict>
+				<key>FSMediaProperties</key>
+				<dict>
+					<key>Content Hint</key>
+					<string>0FC63DAF-8483-4772-8E79-3D69D8477DE4</string>
+					<key>Leaf</key>
+					<true/>
+				</dict>
+				<key>FSProbeOrder</key>
+				<integer>100</integer>
+			</dict>
+			<key>Linux</key>
+			<dict>
+				<key>FSMediaProperties</key>
+				<dict>
+					<key>Content Hint</key>
+					<string>Linux</string>
+					<key>Leaf</key>
+					<true/>
+				</dict>
+				<key>FSProbeOrder</key>
+				<integer>100</integer>
+			</dict>
+			<key>Partitionless</key>
+			<dict>
+				<key>FSMediaProperties</key>
+				<dict>
+					<key>Leaf</key>
+					<true/>
+					<key>Whole</key>
+					<true/>
+				</dict>
+				<key>FSProbeOrder</key>
+				<integer>200</integer>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

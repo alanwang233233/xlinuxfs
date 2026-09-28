@@ -1,0 +1,3 @@
+[submodule "vendor/lkl"]
+	path = vendor/lkl
+	url = https://github.com/HuanchuanTech/lkl

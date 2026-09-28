@@ -1,0 +1,39 @@
+# ───────── macOS ─────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ───────── Xcode build output / caches ─────────
+DerivedData/
+build/
+*.xcuserstate
+*.xcscmblueprint
+*.moved-aside
+# Per-user Xcode state (keep shared schemes under xcshareddata/)
+xcuserdata/
+
+# ───────── Compiled objects / libraries ─────────
+*.o
+*.lo
+*.la
+*.a
+*.so
+*.dylib
+
+# LKL library and matching headers are produced by scripts/build-liblkl.sh.
+/libs/
+
+# ───────── Disk-image test fixtures (large; regenerate with mkntfs / ntfscp) ─────────
+*.img
+*.ntfs
+*.dd
+*.raw
+
+# ───────── Tooling / session scratch ─────────
+.codex-gpt-session-id
+.derived-data-log-*
+/_tmp/
+
+# ───────── Local working docs (kept out of the repo) ─────────
+/CLAUDE.md
+/HANDOFF.md

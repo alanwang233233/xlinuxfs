@@ -1,0 +1,1182 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "A sandboxed app can't mount this here, so paste this into Terminal:" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沙盒应用无法在此处挂载,请把下面命令粘贴到「终端」运行:"
+          }
+        }
+      }
+    },
+    "A sandboxed app can't mount this on macOS 26 — select this volume in Disk Utility and click Mount." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沙盒应用在 macOS 26 上无法挂载——请在磁盘工具中选中此卷并点「挂载」。"
+          }
+        }
+      }
+    },
+    "A single copy under /Applications." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/Applications 下只有一份。"
+          }
+        }
+      }
+    },
+    "Access" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "访问权限"
+          }
+        }
+      }
+    },
+    "Add Disk Image…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加磁盘映像…"
+          }
+        }
+      }
+    },
+    "Attach Disk Image" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "附加磁盘映像"
+          }
+        }
+      }
+    },
+    "Attach in Terminal…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在终端中附加…"
+          }
+        }
+      }
+    },
+    "BSD device" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BSD 设备"
+          }
+        }
+      }
+    },
+    "Can't enable it? Open Diagnostics to troubleshoot." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法启用?打开「诊断」排查。"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "Capacity" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "容量"
+          }
+        }
+      }
+    },
+    "Choose Folder…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择文件夹…"
+          }
+        }
+      }
+    },
+    "Choose Image…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择映像…"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        }
+      }
+    },
+    "Copied" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已复制"
+          }
+        }
+      }
+    },
+    "Copy" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制"
+          }
+        }
+      }
+    },
+    "Copy Diagnostics" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制诊断信息"
+          }
+        }
+      }
+    },
+    "Couldn't query FSKit — try Re-check." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法查询 FSKit——请点「重新检测」。"
+          }
+        }
+      }
+    },
+    "Couldn't read install paths in-app. Check in Terminal — expect a single /Applications path (not DerivedData) and no duplicates:" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用内无法读取安装路径。请在终端检查——应只有一个 /Applications 路径(而非 DerivedData)且无重复:"
+          }
+        }
+      }
+    },
+    "Detach Disk Image" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分离磁盘映像"
+          }
+        }
+      }
+    },
+    "Detach Image…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分离映像…"
+          }
+        }
+      }
+    },
+    "Devices" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设备"
+          }
+        }
+      }
+    },
+    "Diagnostics…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "诊断…"
+          }
+        }
+      }
+    },
+    "Disk drives" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "磁盘驱动器"
+          }
+        }
+      }
+    },
+    "Disk images" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "磁盘映像"
+          }
+        }
+      }
+    },
+    "Disk Images" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "磁盘映像"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
+    },
+    "Eject" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "推出"
+          }
+        }
+      }
+    },
+    "Ejecting…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在推出…"
+          }
+        }
+      }
+    },
+    "Enable lklfuse in File System Extensions before mounting an image." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载镜像前，请在「文件系统扩展」中启用 lklfuse。"
+          }
+        }
+      }
+    },
+    "Enable lklfuse in File System Extensions before mounting this volume." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载此卷前，请在「文件系统扩展」中启用 lklfuse。"
+          }
+        }
+      }
+    },
+    "Extension Diagnostics" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扩展诊断"
+          }
+        }
+      }
+    },
+    "Extension enabled" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扩展已启用"
+          }
+        }
+      }
+    },
+    "Extension in this app" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用内的扩展"
+          }
+        }
+      }
+    },
+    "Extension installed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "扩展已安装"
+          }
+        }
+      }
+    },
+    "Extension status unavailable on macOS 15" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS 15 无法报告扩展状态"
+          }
+        }
+      }
+    },
+    "Failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "失败"
+          }
+        }
+      }
+    },
+    "Folder…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文件夹…"
+          }
+        }
+      }
+    },
+    "Format" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "格式"
+          }
+        }
+      }
+    },
+    "FSKit reports a copy outside /Applications. Check which app is registered." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FSKit 报告的扩展位于 /Applications 之外。请检查注册的应用副本。"
+          }
+        }
+      }
+    },
+    "Image" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "映像"
+          }
+        }
+      }
+    },
+    "Image file" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "映像文件"
+          }
+        }
+      }
+    },
+    "In Settings, scroll to Extensions → open “File System Extensions” → turn on “lklfuse”." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在系统设置中向下滚动到「扩展」→ 打开「文件系统扩展」→ 启用「lklfuse」。"
+          }
+        }
+      }
+    },
+    "In-app mount goes to /Volumes (macOS 27+). Choose a folder to mount into a custom location via a Terminal command." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用内挂载会挂到 /Volumes(需 macOS 27+)。若要挂载到自定义位置,请选择一个文件夹,通过终端命令完成。"
+          }
+        }
+      }
+    },
+    "Install path unknown." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安装路径未知。"
+          }
+        }
+      }
+    },
+    "Linux drives (ext, XFS, Btrfs) mount automatically under /Volumes via the file-system extension. Use this app to eject, remount read-only, mount to a folder you choose, or open a disk image." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ext、XFS、Btrfs 磁盘会通过文件系统扩展自动挂载到 /Volumes。本应用可用于推出、以只读方式重新挂载、挂载到你选择的文件夹,或打开磁盘映像。"
+          }
+        }
+      }
+    },
+    "Linux file-system extension not enabled" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linux 文件系统扩展未启用"
+          }
+        }
+      }
+    },
+    "Linux file-system extension not installed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Linux 文件系统扩展未安装"
+          }
+        }
+      }
+    },
+    "lklfuse is enabled and available to mount Linux volumes (ext, XFS, Btrfs)." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "lklfuse 已启用,可用于挂载 Linux 卷(ext、XFS、Btrfs)。"
+          }
+        }
+      }
+    },
+    "lklfuse is enabled in System Settings." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "lklfuse 已在系统设置中启用。"
+          }
+        }
+      }
+    },
+    "lklfuse is included in this app. macOS 15 cannot reliably report third-party FSKit registration or enablement to the app." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用内已包含 lklfuse。macOS 15 无法向应用可靠地报告第三方 FSKit 扩展的注册和启用状态。"
+          }
+        }
+      }
+    },
+    "lklfuse is registered with the system." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "lklfuse 已在系统中注册。"
+          }
+        }
+      }
+    },
+    "Loaded from a dev build (DerivedData) — install the release app to /Applications." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从开发构建(DerivedData)加载——请将正式版应用安装到 /Applications。"
+          }
+        }
+      }
+    },
+    "Manual mounting" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手动挂载"
+          }
+        }
+      }
+    },
+    "More than one registration found — this can grey out the toggle." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发现多个注册——这可能导致开关变灰。"
+          }
+        }
+      }
+    },
+    "Mount" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载"
+          }
+        }
+      }
+    },
+    "Mount %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载 %@"
+          }
+        }
+      }
+    },
+    "Mount as read-only by default" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "默认以只读方式挂载"
+          }
+        }
+      }
+    },
+    "Mount Disk Image" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载磁盘映像"
+          }
+        }
+      }
+    },
+    "Mount Image…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载映像…"
+          }
+        }
+      }
+    },
+    "Mount into folder" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载到文件夹"
+          }
+        }
+      }
+    },
+    "Mount read-only" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以只读方式挂载"
+          }
+        }
+      }
+    },
+    "Mount to" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载到"
+          }
+        }
+      }
+    },
+    "Mount to Folder…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载到文件夹…"
+          }
+        }
+      }
+    },
+    "Mount…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载…"
+          }
+        }
+      }
+    },
+    "Mounted" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已挂载"
+          }
+        }
+      }
+    },
+    "Mounted · read-only" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已挂载 · 只读"
+          }
+        }
+      }
+    },
+    "Mounted at" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载于"
+          }
+        }
+      }
+    },
+    "Mounting in the app requires macOS 27. Use Disk Utility to mount this volume." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应用内挂载需要 macOS 27。请用磁盘工具挂载此卷。"
+          }
+        }
+      }
+    },
+    "Mounting…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在挂载…"
+          }
+        }
+      }
+    },
+    "Mounts under /Volumes." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "挂载到 /Volumes。"
+          }
+        }
+      }
+    },
+    "Multiple registrations — remove the stale copies (old DerivedData/dev builds) so only the /Applications copy remains, then Re-check. Duplicates are a known cause of a greyed-out toggle." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "存在多个注册——请移除陈旧副本(旧的 DerivedData/开发构建),只保留 /Applications 那份,然后重新检测。重复注册是开关变灰的已知原因。"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名称"
+          }
+        }
+      }
+    },
+    "No folder selected" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未选择文件夹"
+          }
+        }
+      }
+    },
+    "No Linux volumes" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有 Linux 卷"
+          }
+        }
+      }
+    },
+    "None selected" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未选择"
+          }
+        }
+      }
+    },
+    "Not found. Run the app from Xcode once, or install it to /Applications." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未找到。请用 Xcode 运行一次本应用,或将其安装到 /Applications。"
+          }
+        }
+      }
+    },
+    "Not mounted" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未挂载"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
+          }
+        }
+      }
+    },
+    "On this macOS a sandboxed app can't run mount for you. Paste this into Terminal:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在此版本 macOS 上,沙盒应用无法替你执行 mount。请把下面的命令粘贴到“终端”运行:"
+          }
+        }
+      }
+    },
+    "Once attached, the volume appears in the list and mounts automatically." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "附加后,该卷会出现在列表中并自动挂载。"
+          }
+        }
+      }
+    },
+    "Open Settings…" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开系统设置…"
+          }
+        }
+      }
+    },
+    "Operation failed" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "操作失败"
+          }
+        }
+      }
+    },
+    "Plug in an ext, XFS, or Btrfs drive, or add a disk image." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "插入 ext、XFS 或 Btrfs 磁盘,或添加磁盘映像。"
+          }
+        }
+      }
+    },
+    "Plug in an ext4 drive, or add a disk image." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请插入 ext4 磁盘,或添加磁盘映像。"
+          }
+        }
+      }
+    },
+    "Plug in an ext4 drive, or mount a disk image." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请插入 ext4 磁盘,或挂载一个磁盘映像。"
+          }
+        }
+      }
+    },
+    "Re-check" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新检测"
+          }
+        }
+      }
+    },
+    "Read-only" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只读"
+          }
+        }
+      }
+    },
+    "Read-only access for attached Linux disk images." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对已附加的 Linux 磁盘映像使用只读访问。"
+          }
+        }
+      }
+    },
+    "Read-only access for Linux disk drives (ext, XFS, Btrfs)." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "对 Linux 磁盘驱动器(ext、XFS、Btrfs)使用只读访问。"
+          }
+        }
+      }
+    },
+    "Read-only follows your Settings for this kind of volume — change it in Settings before mounting." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只读与否取决于你在「设置」中对此类卷的选择——挂载前请先在设置中调整。"
+          }
+        }
+      }
+    },
+    "Read/write" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "读写"
+          }
+        }
+      }
+    },
+    "Registration" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注册"
+          }
+        }
+      }
+    },
+    "Remove from List" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从列表移除"
+          }
+        }
+      }
+    },
+    "Reveal in Finder" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在访达中显示"
+          }
+        }
+      }
+    },
+    "Run this in Terminal — a sandboxed app can't do it for you:" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在终端运行——沙盒应用无法替你执行:"
+          }
+        }
+      }
+    },
+    "Select a raw ext, XFS, or Btrfs volume image. Attach partitioned or compressed images using the Terminal command." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请选择原始 ext、XFS 或 Btrfs 卷镜像。分区磁盘或压缩镜像请通过终端命令附加。"
+          }
+        }
+      }
+    },
+    "Select a volume" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择一个卷"
+          }
+        }
+      }
+    },
+    "Status unavailable on macOS 15. Check the lklfuse switch in System Settings; an unknown status does not mean it is disabled." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS 15 上无法查询此状态。请到系统设置中检查 lklfuse 开关；状态未知不代表未启用。"
+          }
+        }
+      }
+    },
+    "Still off after toggling? On macOS 26 the File System Extensions switch can be a no-op (a known system bug). As a last resort — unsupported — inspect the FSKit settings, force-enable, and restart its agent:" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开了开关还是没启用?在 macOS 26 上「文件系统扩展」开关可能无效(已知系统 bug)。作为最后手段(非官方支持):检查 FSKit 设置、强制启用,并重启其 agent:"
+          }
+        }
+      }
+    },
+    "System" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统"
+          }
+        }
+      }
+    },
+    "System (/Volumes)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统(/Volumes)"
+          }
+        }
+      }
+    },
+    "The image is attached writable; whether it mounts read-only then follows your Disk Images setting." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "镜像以可写方式附加;是否只读挂载取决于你在“磁盘映像”中的设置。"
+          }
+        }
+      }
+    },
+    "The image will mount read-only (recommended)." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "镜像将以只读方式挂载(推荐)。"
+          }
+        }
+      }
+    },
+    "The system did not return an xlinuxfs image mount. Refresh the volume list and check Diagnostics." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统未返回 xlinuxfs 镜像挂载。请刷新卷列表并查看诊断信息。"
+          }
+        }
+      }
+    },
+    "The system did not return an xlinuxfs mount. Refresh the volume list and check Diagnostics." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统未返回 xlinuxfs 挂载。请刷新卷列表并查看诊断信息。"
+          }
+        }
+      }
+    },
+    "The volume mounted with a different access mode than requested. Check its current status before using it." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卷已挂载，但实际读写模式与请求不一致。请先确认卷的当前状态。"
+          }
+        }
+      }
+    },
+    "This appends lklfuse to the enabled-modules list only if it's missing, then restarts fskit_agent. It edits files outside the sandbox, so the app can't run it for you." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅在缺失时把 lklfuse 追加到已启用模块列表,然后重启 fskit_agent。它会修改沙盒之外的文件,所以应用无法替你执行。"
+          }
+        }
+      }
+    },
+    "This image is already mounted. Eject it before changing its access mode." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此镜像已经挂载。如需更改读写模式，请先推出。"
+          }
+        }
+      }
+    },
+    "This volume is already mounted. Eject it before changing its access mode." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此卷已经挂载。如需更改读写模式，请先推出。"
+          }
+        }
+      }
+    },
+    "This volume is read-only (e.g. an image attached read-only) and can only be mounted read-only." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "该卷为只读(例如以只读方式 attach 的镜像),只能以只读方式挂载。"
+          }
+        }
+      }
+    },
+    "Turn on “lklfuse” in the File System Extensions list." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在「文件系统扩展」列表中启用「lklfuse」。"
+          }
+        }
+      }
+    },
+    "Turn on lklfuse under File System Extensions." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在「文件系统扩展」中开启 lklfuse。"
+          }
+        }
+      }
+    },
+    "Volume" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卷"
+          }
+        }
+      }
+    },
+    "xlinuxfs" : {
+
+    }
+  },
+  "version" : "1.0"
+}

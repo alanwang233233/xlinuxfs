@@ -1,150 +1,95 @@
-# xlinuxfs — Linux filesystems for macOS (FSKit + LKL)
+# xlinuxfs — Linux filesystems for macOS (FSKit)
 
 > 📖 Also available in [Simplified Chinese](README_CN.md).
 
 <a href="https://apps.apple.com/app/xlinuxfs/id6785355678"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download xlinuxfs on the App Store" height="44"></a>
 
-A macOS app + **FSKit file-system extension** that reads and writes **ext2/3/4, XFS, and Btrfs**
-volumes using the **real Linux kernel** via [LKL](https://github.com/lkl/linux) (Linux Kernel
-Library). No kernel extension, no macFUSE.
+A macOS app + **FSKit file-system extension** for mounting **ext2/3/4, XFS, and Btrfs**
+volumes — no kernel extension, no macFUSE. Extracted from the
+[xntfs](../xntfs) project's reusable FSKit scaffolding, with the NTFS engine (ntfs-3g) removed.
 
-The `lklfuse` app-extension embeds the actual in-kernel Linux filesystem drivers (journaling and
-the whole ext4 / XFS / Btrfs codebase) — built to a native Mach-O **`liblkl.a`** — behind a thin
-FSKit `FSVolume` mapping layer. Each volume runs file operations through the `lkfs_*` C bridge over
-`lkl_sys_*` syscalls, so the on-disk handling is the kernel's own, not a reimplementation.
+Supports Apple Silicon and Intel, with a minimum deployment target of macOS 15.4.
+macOS 27 adds in-app raw image mounting and device mounting with RO/RW selection.
+See [platform support and verification](docs/platform-support.md) for build
+prerequisites, OS-specific behavior, and tested boundaries.
 
-Linux drives **auto-mount under `/Volumes` by the system** (DiskArbitration probes the extension's
-registered `FSMediaTypes` — the GPT *Linux filesystem data* type, the MBR `Linux` (0x83) hint, and
-partitionless whole disks — with no app process needed, exactly like the built-in exFAT/MSDOS
-modules). The `xlinuxfs` app is a **control panel**: it lists Linux drives and attached images,
-does manual mount/unmount and read-only remounts, and attaches/detaches disk images. The sandbox
-can't run `hdiutil`/`mount`, so those are surfaced as **copyable Terminal commands** where the app
-can't act directly.
+> **Status: working.** The app (control panel, detection, diagnostics, guided command-line
+> attach / detach / mount) and the **FSKit extension** are both implemented: `probeResource`
+> identifies ext2/3/4, XFS and Btrfs from the superblock, and every volume operation (read/write,
+> create, remove, rename, symlinks, attributes) is served by the real Linux drivers. The bridge is
+> validated end-to-end by a CLI harness; OS-level mounting still needs the FSKit module authorized
+> by a provisioning profile (and macOS 27 for in-app mounting — see [Build & provisioning](#build--provisioning)).
+>
+> **Engine: the real Linux kernel via LKL** (Linux Kernel Library), built as a native Mach-O
+> `liblkl.a`, so ext2/3/4 + XFS + Btrfs are served by the actual in-kernel drivers (journaled,
+> read-write) rather than a reimplementation. The macOS port of LKL (kernel → Mach-O) is tracked in
+> `vendor/lkl/tools/lkl/darwin/README.md`; the host side (`lkl_host_ops` + a block backend over
+> `FSBlockDeviceResource`, then `lkl_sys_mount`/`lkl_sys_*`) lives in the extension's `bridge/`.
 
 ```
-xlinuxfs.app  (SwiftUI, App Sandbox — control panel; not a background agent)
- ├─ AppModel ── DiskArbitrationMonitor   detect/list Linux drives (detection only)
+xlinuxfs.app  (SwiftUI, App Sandbox — control panel)
+ ├─ AppModel ── DiskArbitrationMonitor   detect/list Linux-fs volumes (detection only)
  │           └─ MountService             guided command-line attach / detach / mount
- └─ Contents/Extensions/lklfuse.appex    FSKit module — the in-process Linux engine (+ auto-mount)
+ └─ Contents/Extensions/lklfuse.appex     FSKit module — in-process LKL Linux engine
         lklfuse.swift            @main UnaryFileSystemExtension
         lklfuseFileSystem.swift  probe (superblock magic) / load / unload
-        lklfuseVolume.swift      every FSVolume operation → lkfs_* bridge
-        bridge/lkl_fskit.c       lkfs_* over lkl_sys_* (mount, getattr, readdir, read, write, create…)
-        bridge/lkl_blk_ops.c     virtio-blk backed by the FSKit backend
-        bridge/linux_device_fskit.m  block I/O over FSBlockDeviceResource / image file
-        + liblkl.a (arm64; the in-process Linux kernel, statically linked)
+        lklfuseVolume.swift      every FSVolume operation over the lkfs_* bridge
+        lklfuseItem.swift        FSItem ↔ Linux inode number
+        bridge/                  lkfs_* C bridge over the in-process LKL kernel (liblkl.a)
 ```
 
-## Status
+## What's here vs. what's TODO
 
-| Piece | State |
-|-------|-------|
-| `lklfuse` extension (ext/XFS/Btrfs engine via LKL) | ✅ builds; engine statically linked; FSKit conformances complete |
-| `xlinuxfs` app (UI, monitor, mount service, settings) | ✅ builds |
-| English + Simplified Chinese localization | ✅ `Localizable.xcstrings` (en, zh-Hans) |
-| App icon | ✅ generated, full AppIcon set |
-| End-to-end mount on a Mac | ⛔ requires the FSKit entitlement to be provisioned for your team — see below |
+- **App target `xlinuxfs/`** — control panel UI, `DiskArbitrationMonitor` (detects Linux media by
+  the Linux-filesystem GPT GUID / content hints), `MountService` (guided command-line attach /
+  detach / mount), `ExtensionStatus` diagnostics, settings, localization. Reused largely from xntfs.
+- **Extension target `lklfuse/`** — a full FSKit `FSUnaryFileSystem` / `FSVolume` / `FSItem`
+  implementation over the in-process LKL kernel (`bridge/lkl_fskit.*`, `lkl_blk_ops.c`,
+  `linux_device_fskit.m`):
+  - `lklfuseFileSystem.probeResource` identifies ext2/3/4 (`0xEF53`), XFS (`XFSB`) and Btrfs
+    (`_BHRfS_M`) from the superblock magic, and reports the label + native fs UUID.
+  - `lklfuseFileSystem.loadResource` loads metadata read-only; activation then applies
+    explicit RO/RW options or the per-scenario App-Group setting.
+  - `lklfuseVolume` operations are served by the Linux drivers via `lkl_sys_*`.
+- **`Info.plist` `FSMediaTypes`** — Linux-filesystem GPT GUID `0FC63DAF-…-3D69D8477DE4`, a `Linux`
+  content hint, and partitionless whole-disk. **Verify the exact DA content hints for ext volumes
+  on a real machine** (MBR disks may report `Linux`/`0x83` differently).
 
-The engine itself is independently proven: the in-process kernel boots and mounts ext2/3/4
-read-write, XFS and Btrfs read-only; mount / enumerate / read / write / create / rename / hard +
-symbolic links are cross-checked by a CLI harness against real images. Only the OS *loading* of the
-extension depends on code-signing / provisioning tied to your Apple Developer account.
+## Excluded from the source project
 
-## Features
+Everything ntfs-3g: the `ntfs-3g` submodule + `libntfs-3g.a`, the C/Obj-C bridge
+(`bridge/ntfs_fskit.{c,h}`, `ntfs_device_fskit.m`), the Swift↔C bridging header, the
+`build-libntfs.sh` script and `test_bridge.c`. The extension's build settings (`HAVE_CONFIG_H`,
+ntfs-3g header search paths, the static-lib link, the Obj-C bridging header) were stripped from
+the Xcode project.
 
-1. **Localization (English + Simplified Chinese)** — `xlinuxfs/Localizable.xcstrings` (String
-   Catalog). Add more languages by adding `localizations` entries.
-2. **Auto-mount removable Linux media** — handled by the **system**, not the app: the extension's
-   `Info.plist` registers `FSMediaTypes` for the GPT *Linux filesystem data* type (`0FC63DAF-…`),
-   the MBR `Linux` content hint, and partitionless whole disks, so DiskArbitration auto-mounts a
-   recognized ext/XFS/Btrfs volume under `/Volumes` using our module — with no app process running.
-   The app only *detects/lists* drives for the UI.
-3. **Read-only by scenario** — Settings has two per-scenario defaults shared with the extension
-   through an App Group: **disk drives** default read/write, **disk images** default read-only. A
-   read-only mount is genuinely write-free (the kernel mounts `MS_RDONLY` with ext `noload` / XFS
-   `norecovery`, and the backend is opened `O_RDONLY`).
-4. **Multiple drives at once** — devices are tracked by BSD name and mounted independently.
-5. **Manual mount / unmount** — per-device *Mount…* and *Eject*. On macOS 27 the app mounts in-app
-   via `FSClient`; on macOS 26 a sandboxed app can't mount a third-party FSKit volume, so it shows a
-   copyable **`hdiutil mountvol /dev/diskXsY`** command (`diskutil mount` is ineffective for Linux
-   filesystems).
-6. **Disk images** — macOS can't attach a Linux disk image through Disk Utility, so *Add Disk
-   Image…* picks a raw ext/XFS/Btrfs image and shows a copyable **`hdiutil attach [-readonly] <img>`**
-   command (read-only by default); once attached, the volume **auto-mounts** like any drive.
-   *Detach Image…* shows `hdiutil detach`.
+## Build & provisioning
 
-## The engine — a real Linux kernel, in-process
-
-`liblkl.a` is the Linux kernel built as a **native arm64 Mach-O object** via LKL. It boots once
-inside the extension; each mounted volume attaches its backing store as a virtio-blk device and
-mounts it with the kernel's own ext4 / XFS / Btrfs driver, so journaling and recovery are the real
-thing. The kernel → Mach-O macOS port (boot + mount fixes) is tracked in the companion `lkl` tree's
-`MACOS_PORT_NOTES.md`.
-
-## Build
+Initialize `vendor/lkl` with `git submodule update --init --recursive` and install
+upstream LLVM 19 (or set `CLANG` to its executable). Xcode's prebuild phase builds
+the universal library and matching headers automatically. See
+[dependency and fork workflow](docs/lkl-dependency.md).
 
 Open `xlinuxfs.xcodeproj` and build the `xlinuxfs` scheme. Targets use Xcode **synchronized folder
-groups**, so files under `xlinuxfs/` and `lklfuse/` are picked up automatically.
+groups**, so files added under `xlinuxfs/` and `lklfuse/` are picked up automatically.
 
-The engine archive `libs/liblkl.a` is **not committed** (it's a build product); rebuild it with
-`scripts/build-liblkl.sh`, which assembles it from the LKL tree's macOS build objects (the kernel
-object comes from the LKL hybrid build in the companion `lkl` tree). **arm64 only.**
+The extension declares the restricted entitlement `com.apple.developer.fskit.fsmodule`
+(`lklfuse/lklfuse.entitlements`); macOS only loads it when that entitlement is authorized by a
+provisioning profile (App ID with the **FSKit File System Module** capability for your team).
+Enable the module under **System Settings → General → Login Items & Extensions → File System
+Extensions**.
 
-## Provisioning (required to actually run the extension)
+## Caveats
 
-The extension declares the **restricted** entitlement `com.apple.developer.fskit.fsmodule`
-(`lklfuse/lklfuse.entitlements`). macOS (AMFI) refuses to load it unless that entitlement is
-authorized by a provisioning profile — the team's App ID needs the **FSKit File System Module**
-capability in the Apple Developer portal, and the app + extension App IDs need the **App Group**
-(`<TeamID>.group.com.huanchuan.xlinuxfs`) so the read-only settings are shared with the extension.
-Once provisioned, enable the module under **System Settings → General → Login Items & Extensions →
-File System Extensions**.
+- Builds via `xcodebuild` (app + embedded `lklfuse.appex`); open `xlinuxfs.xcodeproj` in Xcode to
+  confirm it loads there too. OS-level mounting can't be exercised in-app on macOS < 27 (FSKit
+  Mounter is macOS-27-only); the bridge is validated by the CLI harness meanwhile.
+- The app icon (`assets/xlinuxfs-icon.svg`, rasterized into `Assets.xcassets/AppIcon.appiconset`) is a Tux-on-a-drive design in the xntfs product family; re-render the sizes from the SVG with `rsvg-convert` if you edit it.
+- Bundle IDs: app `com.huanchuan.xlinuxfs`, extension `com.huanchuan.xlinuxfs.lklfuse`; `FSShortName` =
+  `xlinuxfs`. Change to your own identifiers as needed.
 
-## Sandbox & mounting
+## License & privacy
 
-Verified on macOS 26.5 with the sandboxed build:
-
-- **Auto-mount is the main path.** The system mounts a recognized Linux volume read/write (or
-  read-only per your Settings) under `/Volumes` via the extension's `FSMediaTypes` — no app
-  process, no mount entitlement.
-- **A sandboxed app can't manually mount a third-party FSKit volume on macOS 26.** Manual mounting
-  is in-app only on macOS 27 (`FSClient`, `/Volumes` only); before that it's a copyable
-  `hdiutil mountvol` command.
-- **`diskutil mount` is ineffective for Linux filesystems**, and `mount -F -t xlinuxfs …` is denied
-  by the extension's sandbox — `hdiutil mountvol` (also routed through DiskArbitration) is the
-  working CLI.
-- **Custom-folder mounting is impossible** for a sandboxed FSKit volume — `/Volumes` only.
-- **The app never shells out.** The sandbox blocks `Process`, so `hdiutil` is surfaced as copyable
-  Terminal commands for you to run.
-
-## License
-
-`xlinuxfs` embeds the Linux kernel and its ext4 / XFS / Btrfs drivers, which are **GPL-2.0**, so the
-project as a whole is distributed under the **GNU General Public License, version 2** (see
-[`LICENSE`](LICENSE)).
-
-## Layout
-
-```
-xlinuxfs/                   app target (SwiftUI)
-  xlinuxfsApp.swift         @main App + Settings scene
-  ContentView.swift         device/image list + detail; mount / attach / detach actions
-  MountSheet.swift          manual mount (read-only shown, follows Settings)
-  CommandSheet.swift        attach/detach sheets (AttachImageSheet: read-only default)
-  CopyableCommand.swift     shared "copy this Terminal command" control
-  DiagnosticsView.swift     extension-status diagnostics page
-  SettingsView.swift        per-scenario read-only preferences
-  Model/LinuxDevice.swift
-  Services/                 AppModel, AppSettings, DiskArbitrationMonitor, MountService,
-                            ExtensionStatus
-  Localizable.xcstrings     en + zh-Hans
-  Assets.xcassets/AppIcon   generated icon set
-lklfuse/                    FSKit extension target
-  lklfuse*.swift            @main + FSUnaryFileSystem + FSVolume + FSItem
-  bridge/                   lkl_fskit.{h,c}, lkl_blk_ops.c, linux_device_fskit.m, lkl-include/
-  Info.plist                FSShortName=xlinuxfs, FSMediaTypes, block resources
-  lklfuse.entitlements      com.apple.developer.fskit.fsmodule + App Group + sandbox
-libs/liblkl.a               the in-process Linux kernel (built by scripts/build-liblkl.sh)
-scripts/build-liblkl.sh     assembles liblkl.a from the LKL macOS build
-assets/xlinuxfs-icon.svg    icon source
-```
+This project embeds the Linux kernel and is distributed under the
+**GNU General Public License, version 2** (see [LICENSE](LICENSE)).
+See the [Privacy Policy](PRIVACY.md) for data handling information.
