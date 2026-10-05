@@ -7,6 +7,9 @@
 # * LKL(liblkl.a)要求上游 LLVM 19 → brew install llvm@19;scripts/prebuild-lkl.py
 #   本身会自动识别 /opt/homebrew/opt/llvm@19/bin/clang,这里用 LKL_CLANG 显式指定双保险。
 #   若日后 Homebrew 移除 llvm@19 formula,可改为自备安装并把 LKL_CLANG 指向其 bin/clang。
+# * 已知坑:runner 上 brew 操作可能把系统 developer dir 重置回 CommandLineTools,
+#   导致 xcrun/xcodebuild 找不到 SDK。因此先跑 brew,再用 DEVELOPER_DIR 环境变量
+#   (优先级高于 xcode-select)钉死工具链,并立即做硬校验,失败即中止。
 # * CI 无签名证书/描述文件,按 docs 中已验证的方式以 CODE_SIGNING_ALLOWED=NO 出包。
 #   注意:FSKit 受限 entitlement(com.apple.developer.fskit.fsmodule)需要本地用
 #   团队证书 + provisioning profile 签名后才会被 macOS 加载,此产物仅用于编译验证/分发源码包。
@@ -43,25 +46,43 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Select newest Xcode
-        run: |
-          xcodebuild -version
-          latest="$(find /Applications -maxdepth 1 -name 'Xcode*.app' | sort -V | tail -n 1)"
-          echo "Selecting $latest"
-          sudo xcode-select -s "$latest"
-          xcodebuild -version
-
+      # 先跑 brew(它可能重置系统 developer dir),再用 DEVELOPER_DIR 钉死 Xcode 工具链。
+      # 优先沿用镜像默认(恰好是项目文档验证过的 Xcode 27.0 / 27A266a),只有默认不是
+      # 完整 Xcode 时才回落到 /Applications 里版本号最高的 Xcode。
       - name: Install LLVM 19 (LKL compiler)
         run: |
           brew install llvm@19
           echo "LKL_CLANG=$(brew --prefix)/opt/llvm@19/bin/clang" >> "$GITHUB_ENV"
           "$(brew --prefix)/opt/llvm@19/bin/clang" --version
 
+      - name: Set up Xcode toolchain
+        run: |
+          set -euo pipefail
+          dev_dir="$(xcode-select -p)"
+          case "$dev_dir" in
+            /Applications/*.app/Contents/Developer) ;;
+            *)
+              dev_dir="$(find /Applications -maxdepth 1 -name 'Xcode*.app' | sort -V | tail -n 1)/Contents/Developer"
+              ;;
+          esac
+          test -d "$dev_dir" || { echo "No usable Xcode (developer dir: $dev_dir)" >&2; exit 1; }
+          echo "DEVELOPER_DIR=$dev_dir" >> "$GITHUB_ENV"
+          echo "Using $dev_dir"
+          xcodebuild -version
+          xcrun --show-sdk-path
+          xcrun --show-sdk-version
+
       - name: Resolve cache key inputs
         id: keys
         run: |
-          echo "lkl=$(git -C vendor/lkl rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-          echo "sdk=$(xcrun --show-sdk-version)" >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+          # 先赋值再写输出:命令替换直接内联在 echo 里时,子命令失败不会让步骤失败。
+          lkl_sha="$(git -C vendor/lkl rev-parse HEAD)"
+          sdk="$(xcrun --show-sdk-version)"
+          {
+            echo "lkl=$lkl_sha"
+            echo "sdk=$sdk"
+          } >> "$GITHUB_OUTPUT"
 
       # scripts/prebuild-lkl.py 会校验 LKL commit/工作树改动、编译器、SDK 与 ld 指纹,
       # 恢复到旧缓存时指纹不匹配会自动全量重建,因此 restore-keys 回退是安全的。
