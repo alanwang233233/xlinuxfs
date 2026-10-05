@@ -1,0 +1,5 @@
+# actionlint 配置:xcode-27 是 GitHub 官方预览镜像标签
+# (actions/runner-images#14404),其内置标签数据尚未收录,这里登记为合法标签。
+self-hosted-runner:
+  labels:
+    - xcode-27

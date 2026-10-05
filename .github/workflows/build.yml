@@ -1,0 +1,155 @@
+# 云端编译:macOS universal Release 包(app + FSKit 扩展),带 liblkl 静态库缓存。
+#
+# 关键约束(对应 docs/platform-support.md 与 docs/lkl-dependency.md):
+# * 代码引用了 macOS 26/27 的 FSKit API(如 FSClient.mountSingleVolume,受 #available
+#   运行时守卫),必须用 Xcode 27 SDK 编译 → 使用 GitHub 托管的 `xcode-27` 镜像
+#   (public preview,macOS 27 base;排队能力有限,偶发等待属正常)。
+# * LKL(liblkl.a)要求上游 LLVM 19 → brew install llvm@19;scripts/prebuild-lkl.py
+#   本身会自动识别 /opt/homebrew/opt/llvm@19/bin/clang,这里用 LKL_CLANG 显式指定双保险。
+#   若日后 Homebrew 移除 llvm@19 formula,可改为自备安装并把 LKL_CLANG 指向其 bin/clang。
+# * CI 无签名证书/描述文件,按 docs 中已验证的方式以 CODE_SIGNING_ALLOWED=NO 出包。
+#   注意:FSKit 受限 entitlement(com.apple.developer.fskit.fsmodule)需要本地用
+#   团队证书 + provisioning profile 签名后才会被 macOS 加载,此产物仅用于编译验证/分发源码包。
+# * 桥接运行时测试(tests/run_bridge_platforms.sh)需要 ext4/xfs/btrfs 测试镜像且 macOS
+#   无法生成,CI 只做两架构的编译 + 链接冒烟检查;运行时验证按文档在本机执行。
+# * 推送 v* 标签时,release job 会把构建产物附到对应的 GitHub Release。
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DERIVED_DATA: build/DerivedData
+  APP_ZIP: build/xlinuxfs-universal-unsigned.zip
+
+jobs:
+  build:
+    name: Universal Release (arm64 + x86_64)
+    runs-on: xcode-27
+    timeout-minutes: 90
+    steps:
+      - name: Checkout (含 vendor/lkl 子模块)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Select newest Xcode
+        run: |
+          xcodebuild -version
+          latest="$(find /Applications -maxdepth 1 -name 'Xcode*.app' | sort -V | tail -n 1)"
+          echo "Selecting $latest"
+          sudo xcode-select -s "$latest"
+          xcodebuild -version
+
+      - name: Install LLVM 19 (LKL compiler)
+        run: |
+          brew install llvm@19
+          echo "LKL_CLANG=$(brew --prefix)/opt/llvm@19/bin/clang" >> "$GITHUB_ENV"
+          "$(brew --prefix)/opt/llvm@19/bin/clang" --version
+
+      - name: Resolve cache key inputs
+        id: keys
+        run: |
+          echo "lkl=$(git -C vendor/lkl rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "sdk=$(xcrun --show-sdk-version)" >> "$GITHUB_OUTPUT"
+
+      # scripts/prebuild-lkl.py 会校验 LKL commit/工作树改动、编译器、SDK 与 ld 指纹,
+      # 恢复到旧缓存时指纹不匹配会自动全量重建,因此 restore-keys 回退是安全的。
+      - name: Cache liblkl.a + headers
+        uses: actions/cache@v4
+        with:
+          path: libs
+          key: liblkl-${{ runner.arch }}-${{ steps.keys.outputs.lkl }}-${{ steps.keys.outputs.sdk }}-${{ hashFiles('scripts/prebuild-lkl.py') }}
+          restore-keys: |
+            liblkl-${{ runner.arch }}-${{ steps.keys.outputs.lkl }}-
+            liblkl-${{ runner.arch }}-
+
+      - name: Build liblkl.a (universal)
+        run: bash scripts/build-liblkl.sh
+
+      - name: Build xlinuxfs.app + lklfuse.appex (Release, universal)
+        run: |
+          set -o pipefail
+          mkdir -p build
+          xcodebuild \
+            -project xlinuxfs.xcodeproj \
+            -scheme xlinuxfs \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath "$DERIVED_DATA" \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build 2>&1 | tee build/xcodebuild.log | xcbeautify
+
+      - name: Verify universal slices
+        run: |
+          set -euo pipefail
+          app="$DERIVED_DATA/Build/Products/Release/xlinuxfs.app"
+          lipo -info "$app/Contents/MacOS/xlinuxfs"
+          appex="$(find "$app" -name 'lklfuse.appex' -type d | head -n 1)"
+          echo "Extension: $appex"
+          lipo -info "$appex/Contents/MacOS/lklfuse"
+
+      - name: Link-check bridge test harness (arm64 + x86_64)
+        run: |
+          set -euo pipefail
+          for arch in arm64 x86_64; do
+            xcrun clang -arch "$arch" -mmacosx-version-min=15.4 -O2 -DLKL_HOST_CONFIG_POSIX \
+              -Ilklfuse/bridge -Ilibs/include \
+              tests/test_bridge_platform.c cli-test/lkl_file_backend.c \
+              lklfuse/bridge/lkl_fskit.c lklfuse/bridge/lkl_blk_ops.c \
+              libs/liblkl.a -o "build/test-bridge-$arch"
+          done
+          file build/test-bridge-*
+          echo "运行时桥接测试需要 ext4/xfs/btrfs 镜像,按 docs/platform-support.md 在本机执行。"
+
+      - name: Package app bundle
+        run: |
+          ditto -c -k --keepParent \
+            "$DERIVED_DATA/Build/Products/Release/xlinuxfs.app" "$APP_ZIP"
+          unzip -l "$APP_ZIP" | tail -n 3
+
+      - name: Upload app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xlinuxfs-app-unsigned
+          path: ${{ env.APP_ZIP }}
+          if-no-files-found: error
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            build/xcodebuild.log
+            _tmp/lkl-build/
+          if-no-files-found: ignore
+
+  release:
+    name: Attach build to GitHub Release (tag)
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download built app
+        uses: actions/download-artifact@v4
+        with:
+          name: xlinuxfs-app-unsigned
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: xlinuxfs-universal-unsigned.zip
