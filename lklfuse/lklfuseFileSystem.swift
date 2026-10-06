@@ -140,7 +140,7 @@ final class lklfuseFileSystem: FSUnaryFileSystem, FSUnaryFileSystemOperations,
 
     /// App Group + keys shared with the host app's AppSettings (keep both in sync).
     /// macOS requires third-party group container identifiers to use the Team ID prefix.
-    private static let appGroupID = "529LJDH392.group.com.huanchuan.xlinuxfs"
+    private static let appGroupID = "2Y4Z352Y96.group.com.allenwang.xlinuxfs"
     private static let deviceReadOnlyKey = "deviceReadOnly"
     private static let imageReadOnlyKey = "imageReadOnly"
 

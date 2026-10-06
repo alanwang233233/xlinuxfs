@@ -37,7 +37,7 @@ final class ExtensionStatus {
     private(set) var bundledExtensionURL: URL?
 
     /// Must match the extension target's bundle identifier.
-    static let bundleID = "com.huanchuan.xlinuxfs.lklfuse"
+    static let bundleID = "com.allenwang.xlinuxfs.lklfuse"
 
     var isInstalled: Bool { installedCount > 0 }
     var isDuplicated: Bool { installedCount > 1 }

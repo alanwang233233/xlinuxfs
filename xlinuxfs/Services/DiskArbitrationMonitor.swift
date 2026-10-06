@@ -15,7 +15,7 @@ final class DiskArbitrationMonitor {
     var onDevicesChanged: (([LinuxDevice]) -> Void)?
 
     private let session: DASession
-    private let queue = DispatchQueue(label: "com.huanchuan.xlinuxfs.diskarb")
+    private let queue = DispatchQueue(label: "com.allenwang.xlinuxfs.diskarb")
     private let callbackContext = MonitorCallbackContext()
     private var devices: [String: LinuxDevice] = [:]
     private let lock = NSLock()

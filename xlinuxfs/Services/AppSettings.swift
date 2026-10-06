@@ -12,7 +12,7 @@ import Observation
 final class AppSettings {
     /// App Group shared with the lklfuse extension (both targets carry the entitlement).
     /// macOS requires third-party group container identifiers to use the Team ID prefix.
-    static let appGroupID = "529LJDH392.group.com.huanchuan.xlinuxfs"
+    static let appGroupID = "2Y4Z352Y96.group.com.allenwang.xlinuxfs"
     static let deviceReadOnlyKey = "deviceReadOnly"
     static let imageReadOnlyKey  = "imageReadOnly"
 

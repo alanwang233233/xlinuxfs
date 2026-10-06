@@ -17,6 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "342D1B9A2FE52D9D00EC5D14"
                BuildableName = "xlinuxfs.app"
+               BlueprintName = "xlinuxfs"
                ReferencedContainer = "container:xlinuxfs.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,6 +47,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "342D1B9A2FE52D9D00EC5D14"
             BuildableName = "xlinuxfs.app"
+            BlueprintName = "xlinuxfs"
             ReferencedContainer = "container:xlinuxfs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,6 +64,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "342D1B9A2FE52D9D00EC5D14"
             BuildableName = "xlinuxfs.app"
+            BlueprintName = "xlinuxfs"
             ReferencedContainer = "container:xlinuxfs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -85,7 +85,7 @@ Extensions**.
   confirm it loads there too. OS-level mounting can't be exercised in-app on macOS < 27 (FSKit
   Mounter is macOS-27-only); the bridge is validated by the CLI harness meanwhile.
 - The app icon (`assets/xlinuxfs-icon.svg`, rasterized into `Assets.xcassets/AppIcon.appiconset`) is a Tux-on-a-drive design in the xntfs product family; re-render the sizes from the SVG with `rsvg-convert` if you edit it.
-- Bundle IDs: app `com.huanchuan.xlinuxfs`, extension `com.huanchuan.xlinuxfs.lklfuse`; `FSShortName` =
+- Bundle IDs: app `com.allenwang.xlinuxfs`, extension `com.allenwang.xlinuxfs.lklfuse`; `FSShortName` =
   `xlinuxfs`. Change to your own identifiers as needed.
 
 ## License & privacy

@@ -77,7 +77,7 @@ Obj-C 桥接头)也已从 Xcode 工程里剔除。
   确认也能加载。macOS 27 之前无法在应用内做系统级挂载(FSKit Mounter 仅 27 提供),期间桥接层
   由命令行测试程序验证。
 - 应用图标(`assets/xlinuxfs-icon.svg`,已光栅化进 `Assets.xcassets/AppIcon.appiconset`)是与 xntfs 同系列的「企鹅 + 硬盘」设计;若改 SVG,用 `rsvg-convert` 重新导出各尺寸即可。
-- Bundle ID:应用 `com.huanchuan.xlinuxfs`,扩展 `com.huanchuan.xlinuxfs.lklfuse`;`FSShortName` =
+- Bundle ID:应用 `com.allenwang.xlinuxfs`,扩展 `com.allenwang.xlinuxfs.lklfuse`;`FSShortName` =
   `xlinuxfs`。按需改成你自己的标识符。
 
 ## 许可证与隐私
